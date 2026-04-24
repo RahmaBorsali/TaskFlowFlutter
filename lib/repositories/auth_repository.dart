@@ -1,6 +1,7 @@
 import 'package:uuid/uuid.dart';
 import '../models/user_model.dart';
 import '../core/services/hive_service.dart';
+import '../core/services/api_sync_service.dart';
 
 class AuthRepository {
   final _userBox = HiveService.getBox<UserModel>(HiveService.usersBoxName);
@@ -37,6 +38,7 @@ class AuthRepository {
 
     await _userBox.put(user.id, user);
     await _settingsBox.put(_currentUserKey, user.id);
+    ApiSyncService.syncDataWithCloud();
     return user;
   }
 

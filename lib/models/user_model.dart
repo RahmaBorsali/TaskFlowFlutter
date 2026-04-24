@@ -46,4 +46,26 @@ class UserModel extends HiveObject {
       createdAt: createdAt,
     );
   }
+
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      email: json['email'] as String,
+      password: json['password'] as String,
+      avatarColorValue: json['avatarColorValue'] as int,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'password': password,
+      'avatarColorValue': avatarColorValue,
+      'createdAt': createdAt.toIso8601String(),
+    };
+  }
 }

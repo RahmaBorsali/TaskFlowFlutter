@@ -143,6 +143,7 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
                         const SizedBox(height: 8),
                         DropdownButtonFormField<TaskPriority>(
                           value: _priority,
+                          isExpanded: true,
                           decoration: const InputDecoration(),
                           items: TaskPriority.values.map((p) {
                             return DropdownMenuItem(value: p, child: Text(p.name.toUpperCase()));
@@ -161,6 +162,7 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
                         const SizedBox(height: 8),
                         DropdownButtonFormField<TaskStatus>(
                           value: _status,
+                          isExpanded: true,
                           decoration: const InputDecoration(),
                           items: TaskStatus.values.map((s) {
                             return DropdownMenuItem(value: s, child: Text(s.name.toUpperCase()));

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'app.dart';
 import 'core/services/hive_service.dart';
+import 'core/services/api_sync_service.dart';
 import 'core/theme/theme_provider.dart';
 import 'viewmodels/auth_viewmodel.dart';
 import 'viewmodels/task_viewmodel.dart';
@@ -15,13 +16,22 @@ import 'repositories/project_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
-  // Initialize Services
-  await HiveService.init();
-  await NotificationService.init();
-  
-  // Generate Demo Data
-  await DataGenerator.generateDemoData();
+
+  try {
+    // Initialize Services
+    await HiveService.init();
+    await NotificationService.init();
+
+    // Generate Demo Data
+    await DataGenerator.generateDemoData();
+
+    // Sync data with REST API on app startup
+    ApiSyncService.syncDataWithCloud().catchError((error) {
+      debugPrint('API sync error: $error');
+    });
+  } catch (e) {
+    debugPrint('Startup error: $e');
+  }
 
   // Initialize Repositories
   final authRepository = AuthRepository();
@@ -31,16 +41,13 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        // Repository Providers (Optional, but good for DI)
         Provider.value(value: authRepository),
         Provider.value(value: taskRepository),
         Provider.value(value: projectRepository),
-        
-        // Theme & Settings
+
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => SettingsViewModel()),
-        
-        // Feature ViewModels
+
         ChangeNotifierProvider(create: (_) => AuthViewModel(authRepository)),
         ChangeNotifierProvider(create: (_) => TaskViewModel(taskRepository)),
         ChangeNotifierProvider(create: (_) => ProjectViewModel(projectRepository)),

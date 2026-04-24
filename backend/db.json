@@ -1,0 +1,75 @@
+{
+  "tasks": [
+    {
+      "id": "9c8c1642-a383-4735-8ea7-b5fc12e29494",
+      "title": "flutter",
+      "description": "taskflow",
+      "status": "todo",
+      "priority": "medium",
+      "dueDate": "2026-04-24T12:04:00.000",
+      "projectId": "7b0d951b-54ac-4d24-8f61-c3da51f7c123",
+      "assignedTo": "6a268618-8fd4-4709-9a01-c834cecd928e",
+      "createdBy": "6a268618-8fd4-4709-9a01-c834cecd928e",
+      "createdAt": "2026-04-24T23:58:26.021",
+      "updatedAt": "2026-04-24T23:58:26.021"
+    }
+  ],
+  "projects": [
+    {
+      "id": "7b0d951b-54ac-4d24-8f61-c3da51f7c123",
+      "name": "Mobile",
+      "description": "projets",
+      "colorValue": 4294929309,
+      "status": "active",
+      "memberIds": [
+        "52e1ef72-29c5-49d9-b394-074faca70645",
+        "6a268618-8fd4-4709-9a01-c834cecd928e",
+        "704edb2d-0fae-4bbf-8728-18710e07335b"
+      ],
+      "createdBy": "704edb2d-0fae-4bbf-8728-18710e07335b",
+      "createdAt": "2026-04-24T23:54:09.561",
+      "deadline": "2026-04-30T00:00:00.000"
+    },
+    {
+      "id": "c9e063c3-a8f0-4841-b0f6-1ac25d956909",
+      "name": "web",
+      "description": "projets",
+      "colorValue": 4285293567,
+      "status": "active",
+      "memberIds": [
+        "704edb2d-0fae-4bbf-8728-18710e07335b",
+        "52e1ef72-29c5-49d9-b394-074faca70645",
+        "6a268618-8fd4-4709-9a01-c834cecd928e"
+      ],
+      "createdBy": "6a268618-8fd4-4709-9a01-c834cecd928e",
+      "createdAt": "2026-04-24T23:55:48.808",
+      "deadline": "2026-04-30T00:00:00.000"
+    }
+  ],
+  "users": [
+    {
+      "id": "6a268618-8fd4-4709-9a01-c834cecd928e",
+      "name": "Rahma Borsali",
+      "email": "borsalirahma@gmail.com",
+      "password": "Rahma@2003",
+      "avatarColorValue": 4285293567,
+      "createdAt": "2026-04-24T23:50:31.626"
+    },
+    {
+      "id": "704edb2d-0fae-4bbf-8728-18710e07335b",
+      "name": "Takwa Borsali",
+      "email": "takwaborsali@gmail.com",
+      "password": "Rahma@2003",
+      "avatarColorValue": 4285293567,
+      "createdAt": "2026-04-24T23:51:18.321"
+    },
+    {
+      "id": "52e1ef72-29c5-49d9-b394-074faca70645",
+      "name": "Faten Achour",
+      "email": "achourfaten@gmail.com",
+      "password": "Rahma@2003",
+      "avatarColorValue": 4285293567,
+      "createdAt": "2026-04-24T23:52:22.530"
+    }
+  ]
+}

@@ -12,6 +12,7 @@ import 'widgets/stats_card.dart';
 import 'widgets/project_progress_card.dart';
 import '../tasks/widgets/task_card.dart';
 import '../shared/empty_state.dart';
+import '../../core/services/api_sync_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,6 +23,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool _isSyncing = false;
+
   @override
   void initState() {
     super.initState();
@@ -81,17 +84,54 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    GestureDetector(
-                      onTap: () => context.go('/profile'),
-                      child: Container(
-                        width: 48,
-                        height: 48,
-                        decoration: BoxDecoration(
-                          color: user != null ? Color(user.avatarColorValue) : AppColors.primary,
-                          shape: BoxShape.circle,
+                    Row(
+                      children: [
+                        if (_isSyncing)
+                          const Padding(
+                            padding: EdgeInsets.only(right: 16.0),
+                            child: SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            ),
+                          )
+                        else
+                          IconButton(
+                            icon: const Icon(Icons.sync_rounded),
+                            color: AppColors.primary,
+                            onPressed: () async {
+                              setState(() => _isSyncing = true);
+                              final success = await ApiSyncService.syncDataWithCloud();
+                              if (mounted) {
+                                setState(() => _isSyncing = false);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(success ? 'Synchronisation réussie' : 'Échec de la synchronisation'),
+                                    backgroundColor: success ? AppColors.success : AppColors.error,
+                                  ),
+                                );
+                                // Refresh views
+                                if (user != null) {
+                                  taskViewModel.loadTasks(user.id);
+                                  projectViewModel.loadProjects(user.id);
+                                }
+                              }
+                            },
+                          ),
+                        const SizedBox(width: 8),
+                        GestureDetector(
+                          onTap: () => context.go('/profile'),
+                          child: Container(
+                            width: 48,
+                            height: 48,
+                            decoration: BoxDecoration(
+                              color: user != null ? Color(user.avatarColorValue) : AppColors.primary,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(Icons.person_rounded, color: Colors.white),
+                          ),
                         ),
-                        child: const Icon(Icons.person_rounded, color: Colors.white),
-                      ),
+                      ],
                     ),
                   ],
                 ),
@@ -104,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
-                  childAspectRatio: 1.3,
+                  childAspectRatio: 1.15,
                   children: [
                     StatsCard(
                       title: l10n.totalTasks,

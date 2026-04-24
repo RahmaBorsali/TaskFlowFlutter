@@ -1,6 +1,6 @@
 {
-    "name": "gestion_taches_flutter",
-    "short_name": "gestion_taches_flutter",
+    "name": "taskflow",
+    "short_name": "taskflow",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

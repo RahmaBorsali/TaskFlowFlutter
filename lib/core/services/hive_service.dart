@@ -9,6 +9,8 @@ class HiveService {
   static const String projectsBoxName = 'projects';
   static const String tasksBoxName = 'tasks';
   static const String settingsBoxName = 'settings';
+  static const String deletedTaskIdsKey = 'deletedTaskIds';
+  static const String deletedProjectIdsKey = 'deletedProjectIds';
 
   static Future<void> init() async {
     await Hive.initFlutter();

@@ -64,4 +64,34 @@ class ProjectModel extends HiveObject {
       deadline: deadline ?? this.deadline,
     );
   }
+
+  factory ProjectModel.fromJson(Map<String, dynamic> json) {
+    return ProjectModel(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String,
+      colorValue: json['colorValue'] as int,
+      status: ProjectStatus.values.firstWhere(
+          (e) => e.name == json['status'],
+          orElse: () => ProjectStatus.active),
+      memberIds: (json['memberIds'] as List<dynamic>).map((e) => e as String).toList(),
+      createdBy: json['createdBy'] as String,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      deadline: json['deadline'] != null ? DateTime.parse(json['deadline'] as String) : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'colorValue': colorValue,
+      'status': status.name,
+      'memberIds': memberIds,
+      'createdBy': createdBy,
+      'createdAt': createdAt.toIso8601String(),
+      'deadline': deadline?.toIso8601String(),
+    };
+  }
 }
